@@ -1,0 +1,35 @@
+exer1.txt
+
+1. Intro
+Check students’ progress in rosalind’s python village
+Check how far they have achieved the Linux and Git assignments
+
+2. Discussion
+Adding an existing project to GitHub using the command line:
+https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line
+
+Requires you to have an existing github account
+
+On Github:
+Create a remote repository in github: <initial>191exer1
+You may set it to private, with Python gitignore and GPL3 License
+
+On Your Linux Terminal.
+Create a ~/cmcs191/<initial>exer1 folder
+cd into ~/cmcs191/exer1
+git init
+touch test.txt
+git add test.txt
+git commit -m “first commit”
+git remote add origin <remote repository url>
+git remote -v
+git pull origin master
+Save the merge message
+git push origin master
+check in github if test.txt is included
+
+3. Exercise
+Run the sample code for alignment (download exer1.tar.gz from google classroom).
+Within lab hours try to modify the printing function to the intended format.
+Store your code in a github repository (you may also check Mam Mylah’s demo video).
+Extra task: generate the actual alignment
