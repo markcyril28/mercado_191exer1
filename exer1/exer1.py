@@ -36,7 +36,10 @@ def gen_matrix(x, y, match_score=3, gap_cost=2):
 
 	#print_matrix(a,x,y)	
 	return(a)
-	
+
+
+
+
 x = "GGTTGACTA"	
 y = "TGTTACGG"
 
@@ -44,4 +47,51 @@ a=gen_matrix(x,y)
 
 print_matrix1(a,x,y)
 
+print("")
+
+mrows = len(x)
+ncols = len(y)
+max_num = 0
+x_seq = []
+bar_line = []
+y_seq = []
+
+for row in range(mrows):
+	for column in range(ncols):
+		if max_num <= a[row][column]:
+			max_num = a[row][column]
+
+			max_num_row = row
+			max_num_column = column
+
+			upper = a[row-1][column]
+			left = a[row][column-1]
+			diagonal = a[row-1][column-1]
+
+# The list of sequence
+x_seq.append(x[max_num_row-1])
+bar_line.append("|")
+y_seq.append(y[max_num_column-1])
+print("")
+print(x_seq)
+print(bar_line)
+print(y_seq)
+
+# Finding the max number
+print(max_num)
+
+# Printing the aligned nucleotide based on the max number
+print("")
+print(str(max_num_row) + " " + str(max_num_column))
+
+
+print(x[max_num_row-1])
+print(y[max_num_column-1])
+
+# Comparing the Upper, Left, and Diagonal
+
+print("")
+print(upper)
+print(left)
+print(diagonal)
 
