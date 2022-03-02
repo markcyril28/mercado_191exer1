@@ -107,7 +107,7 @@ def seq_alignment(a,x,y):
 			bars.append(" ")
 			y_seq.append(y[column-1])
 			column -= 1
-	print("Maximun Number: ")
+	print("Maximum Number: ")
 	print(max_num)
 
 	# Reversing the List
