@@ -42,6 +42,7 @@ def gen_matrix(x, y, match_score=3, gap_cost=2):
 
 x = "GGTTGACTA"	
 y = "TGTTACGG"
+
 print("Query sequences: ")
 for base in x:
 	print(base, end=" ")
@@ -49,7 +50,7 @@ print()
 for base in y:
 	print(base, end=" ")
 
-a=gen_matrix(x,y)
+a = gen_matrix(x,y)
 
 print("\n\nMatrix: ")
 print_matrix1(a,x,y)
