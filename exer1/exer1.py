@@ -132,5 +132,13 @@ def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
 
 seq_alignment(a,x,y)
 
+print("Query sequences: ")
+for base in x:
+	print(base, end=" ")
+print()
+for base in y:
+	print(base, end=" ")
+print()
+
 print("\nSequence alignment with corresponding Traceback number: ")
 print_seq_alignment(num_traceback, x_seq, bars, y_seq)
