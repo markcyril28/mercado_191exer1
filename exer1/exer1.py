@@ -7,7 +7,15 @@
 def print_matrix1(a,x,y):
 	mrows = len(x)
 	ncols = len(y)
-
+	print("Query sequences: ")
+	for base in x:
+		print(base, end=" ")
+	print()
+	for base in y:
+		print(base, end=" ")
+	print()
+	
+	print("\nMatrix: ")
 	for i in range(mrows):
 		for j in range(ncols):
 			print("%2d" % a[i][j], end=' ')
@@ -39,20 +47,13 @@ def gen_matrix(x, y, match_score=3, gap_cost=2):
 
 
 
-
 x = "GGTTGACTA"	
 y = "TGTTACGG"
 
-print("Query sequences: ")
-for base in x:
-	print(base, end=" ")
-print()
-for base in y:
-	print(base, end=" ")
 
 a = gen_matrix(x,y)
 
-print("\n\nMatrix: ")
+
 print_matrix1(a,x,y)
 
 print()
@@ -111,13 +112,22 @@ def seq_alignment(a,x,y):
 	print("Maximum Number: ")
 	print(max_num)
 
-	# Reversing the List
+	# Reversing the Lists
 	num_traceback.reverse()
 	x_seq.reverse()
 	bars.reverse()
 	y_seq.reverse()
 
-def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
+def print_seq_alignment(num_traceback,x, y, x_seq, bars, y_seq):
+	print("\nQuery sequences: ")
+	for base in x:
+		print(base, end=" ")
+	print()
+	for base in y:
+		print(base, end=" ")
+	print()
+
+	print("\nSequence alignment with corresponding Traceback number: ")
 	for num in num_traceback:
 		print(num, end="	")
 	print()
@@ -132,13 +142,5 @@ def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
 
 seq_alignment(a,x,y)
 
-print("Query sequences: ")
-for base in x:
-	print(base, end=" ")
-print()
-for base in y:
-	print(base, end=" ")
-print()
 
-print("\nSequence alignment with corresponding Traceback number: ")
-print_seq_alignment(num_traceback, x_seq, bars, y_seq)
+print_seq_alignment(num_traceback, x, y, x_seq, bars, y_seq)
