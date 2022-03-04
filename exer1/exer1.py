@@ -7,12 +7,8 @@
 def print_matrix1(a, x, y):
     print("\nGeneral Matrix: ")
     mrows, ncols = len(x), len(y)
-    max_score = 0
 
-    for row in range(mrows):  # Finding the max num
-        for column in range(ncols):
-            if max_score <= a[row][column]:
-                max_score = a[row][column]
+
 
     x_list, y_list = [" "], [" ", " "]  # Adds the bases in x and y to the General Matrix
     for base in x:
@@ -28,8 +24,8 @@ def print_matrix1(a, x, y):
         for j in range(ncols + 2):
             print(a[i][j], end='	')
         print()
-    print("\nMaximum score: ")
-    print(max_score)
+
+
 
 
 def gen_matrix(x, y, match_score=3, gap_cost=2):
@@ -58,8 +54,16 @@ y_seq = []
 
 def seq_alignment(a, x, y):
     mrows, ncols = len(x), len(y)
-    row, column = mrows, ncols
 
+
+    max_score, max_score_row, max_score_column = 0, 0, 0
+    for row in range(mrows):  # Finding the max num
+        for column in range(ncols):
+            if max_score <= a[row][column]:
+                max_score = a[row][column]
+                max_score_row, max_score_column = row, column
+
+    row, column = max_score_row, max_score_column
     while row > 0 and column > 0:  # Tracing back the global alignment
         num_current = a[row][column]
         upper = a[row - 1][column]
