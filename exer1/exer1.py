@@ -7,6 +7,7 @@
 def print_matrix1(a,x,y):
 	mrows = len(x)
 	ncols = len(y)
+	
 	print("Query sequences: ")
 	for base in x:
 		print(base, end=" ")
@@ -16,8 +17,8 @@ def print_matrix1(a,x,y):
 	print()
 	
 	print("\nMatrix: ")
-	for i in range(mrows):
-		for j in range(ncols):
+	for i in range(mrows+1):
+		for j in range(ncols+1):
 			print("%2d" % a[i][j], end=' ')
 		print()
 
@@ -71,52 +72,57 @@ def seq_alignment(a,x,y):
 	max_num = 0
 	max_num_row = 0
 	max_num_column = 0
-	for row in range(mrows):
+
+	for row in range(mrows):		# Finding the max num
 		for column in range(ncols):
 			if max_num <= a[row][column]:
 				max_num = a[row][column]
 				max_num_row = row
 				max_num_column = column
 
-
 	num_traceback.append(max_num)
 	row = max_num_row
 	column = max_num_column
 
-	# Tracing back the global alignment
-	while row > 0 and column > 0:
+	while row > 0 and column > 0:			# Tracing back the global alignment
 		upper = a[row - 1][column]
 		left = a[row][column - 1]
 		diagonal = a[row - 1][column - 1]
 		greater_num = max(upper, left, diagonal, 0)
 
-		if greater_num > 0:
+		if x[row - 1] == y[column - 1]:  # Matched
 			num_traceback.append(greater_num)
-
-		if greater_num == diagonal:
-			x_seq.append(x[row-1])
+			x_seq.append(x[row - 1])
 			bars.append("|")
-			y_seq.append(y[column-1])
+			y_seq.append(y[column - 1])
 			row -= 1
 			column -= 1
-		elif greater_num == upper:
+		elif greater_num == diagonal:  # Mismatched
+			num_traceback.append(diagonal)
+			x_seq.append(x[row - 1])
+			bars.append(" ")
+			y_seq.append(y[column - 1])
+			row -= 1
+			column -= 1
+		elif greater_num == upper:		# Insert in x_seq
+			num_traceback.append(upper)
 			x_seq.append(x[row-1])
 			bars.append(" ")
 			y_seq.append("-")
 			row -= 1
-		elif greater_num == left:
+		elif greater_num == left:		# Insert in y_seq
+			num_traceback.append(left)
 			x_seq.append("-")
 			bars.append(" ")
 			y_seq.append(y[column-1])
 			column -= 1
-	print("Maximum Number: ")
-	print(max_num)
+	num_traceback.pop(-1)
 
-	# Reversing the Lists
-	num_traceback.reverse()
+	num_traceback.reverse() 	# Reversing the Lists
 	x_seq.reverse()
 	bars.reverse()
 	y_seq.reverse()
+	return num_traceback, x_seq, bars, x_seq
 
 def print_seq_alignment(num_traceback,x, y, x_seq, bars, y_seq):
 	print("\nQuery sequences: ")
