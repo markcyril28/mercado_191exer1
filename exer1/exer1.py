@@ -77,32 +77,38 @@ def seq_alignment(a,x,y):
 				max_num_column = column
 
 
-	num_traceback.append(max_num)
-	row = max_num_row
-	column = max_num_column
+	row, column = mrows, ncols
 
 	# Tracing back the global alignment
 	while row > 0 and column > 0:
+		num_current = a[row][column]
 		upper = a[row - 1][column]
 		left = a[row][column - 1]
 		diagonal = a[row - 1][column - 1]
 		greater_num = max(upper, left, diagonal, 0)
 
-		if greater_num > 0:
-			num_traceback.append(greater_num)
-
-		if greater_num == diagonal:
-			x_seq.append(x[row-1])
+		if x[row - 1] == y[column - 1]:  # Matched
+			num_traceback.append(num_current)
+			x_seq.append(x[row - 1])
 			bars.append("|")
+			y_seq.append(y[column - 1])
+			row -= 1
+			column -= 1
+		elif greater_num == diagonal:
+			num_traceback.append(num_current)
+			x_seq.append(x[row-1])
+			bars.append(" ")
 			y_seq.append(y[column-1])
 			row -= 1
 			column -= 1
 		elif greater_num == upper:
+			num_traceback.append(num_current)
 			x_seq.append(x[row-1])
 			bars.append(" ")
 			y_seq.append("-")
 			row -= 1
 		elif greater_num == left:
+			num_traceback.append(num_current)
 			x_seq.append("-")
 			bars.append(" ")
 			y_seq.append(y[column-1])
