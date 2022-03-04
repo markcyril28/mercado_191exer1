@@ -20,8 +20,8 @@ def print_matrix1(a, x, y):
     for i, base in zip(range(1, mrows + 2), x_list):  # Add the bases in x every row and in every first item
         a[i].insert(0, base)
 
-    for i in range(mrows + 1):
-        for j in range(ncols + 1):
+    for i in range(mrows + 2):
+        for j in range(ncols + 2):
             print(a[i][j], end='	')
         print()
 
@@ -51,20 +51,15 @@ x_seq = []
 bars = []
 y_seq = []
 
-
 def seq_alignment(a, x, y):
     mrows = len(x)
     ncols = len(y)
     max_score = 0
 
-
     for row in range(mrows):  # Finding the max num
         for column in range(ncols):
             if max_score <= a[row][column]:
                 max_score = a[row][column]
-
-    print("Maximum number: ")
-    print(max_score)
 
     row, column = mrows, ncols
 
@@ -106,10 +101,11 @@ def seq_alignment(a, x, y):
     x_seq.reverse()
     bars.reverse()
     y_seq.reverse()
-    return num_traceback, x_seq, bars, x_seq
+
 
 
 def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
+
     print("\nSequence alignment with corresponding Traceback number: ")
     for num in num_traceback:
         print(num, end="	")
@@ -128,8 +124,10 @@ x = "GGTTGACTA"
 y = "TGTTACGG"
 
 a = gen_matrix(x, y)
+
 seq_alignment(a, x, y)
 
 print_matrix1(a, x, y)
+
 print_seq_alignment(num_traceback, x_seq, bars, y_seq)
 print()
