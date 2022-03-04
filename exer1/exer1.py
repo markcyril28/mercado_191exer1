@@ -55,54 +55,52 @@ y_seq = []
 def seq_alignment(a, x, y):
     mrows = len(x)
     ncols = len(y)
-    max_num = 0
-    max_num_row = 0
-    max_num_column = 0
+    max_score = 0
+
 
     for row in range(mrows):  # Finding the max num
         for column in range(ncols):
-            if max_num <= a[row][column]:
-                max_num = a[row][column]
-                max_num_row = row
-                max_num_column = column
+            if max_score <= a[row][column]:
+                max_score = a[row][column]
 
-    num_traceback.append(max_num)
-    row = max_num_row
-    column = max_num_column
+    print("Maximum number: ")
+    print(max_score)
+
+    row, column = mrows, ncols
 
     while row > 0 and column > 0:  # Tracing back the global alignment
+        num_current = a[row][column]
         upper = a[row - 1][column]
         left = a[row][column - 1]
         diagonal = a[row - 1][column - 1]
         greater_num = max(upper, left, diagonal, 0)
 
         if x[row - 1] == y[column - 1]:  # Matched
-            num_traceback.append(greater_num)
+            num_traceback.append(num_current)
             x_seq.append(x[row - 1])
             bars.append("|")
             y_seq.append(y[column - 1])
             row -= 1
             column -= 1
         elif greater_num == diagonal:  # Mismatched
-            num_traceback.append(diagonal)
+            num_traceback.append(num_current)
             x_seq.append(x[row - 1])
             bars.append(" ")
             y_seq.append(y[column - 1])
             row -= 1
             column -= 1
         elif greater_num == upper:  # Insert in x_seq
-            num_traceback.append(upper)
+            num_traceback.append(num_current)
             x_seq.append(x[row - 1])
             bars.append(" ")
             y_seq.append("-")
             row -= 1
         elif greater_num == left:  # Insert in y_seq
-            num_traceback.append(left)
+            num_traceback.append(num_current)
             x_seq.append("-")
             bars.append(" ")
             y_seq.append(y[column - 1])
             column -= 1
-    num_traceback.pop(-1)
 
     num_traceback.reverse()  # Reversing the Lists
     x_seq.reverse()
