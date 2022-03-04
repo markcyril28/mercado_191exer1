@@ -5,21 +5,24 @@
 #or like sw.PNG
 
 def print_matrix1(a,x,y):
+	print("\nGeneral Matrix: ")
 	mrows = len(x)
 	ncols = len(y)
-	
-	print("Query sequences: ")
+
+	x_list = [" "]  # Adds the bases in x and y to the General Matrix
+	y_list = [" ", " "]
 	for base in x:
-		print(base, end=" ")
-	print()
+		x_list.append(base)
 	for base in y:
-		print(base, end=" ")
-	print()
-	
-	print("\nMatrix: ")
+		y_list.append(base)
+
+	a.insert(0, y_list)  # Add the bases in y in the first row
+	for i, base in zip(range(1, mrows + 2), x_list):  # Add the bases in x every row and in every first item
+		a[i].insert(0, base)
+
 	for i in range(mrows+1):
 		for j in range(ncols+1):
-			print("%2d" % a[i][j], end=' ')
+			print(a[i][j], end='	')
 		print()
 
 
@@ -48,14 +51,9 @@ def gen_matrix(x, y, match_score=3, gap_cost=2):
 
 
 
-x = "GGTTGACTA"	
-y = "TGTTACGG"
 
 
-a = gen_matrix(x,y)
 
-
-print_matrix1(a,x,y)
 
 print()
 
@@ -124,15 +122,7 @@ def seq_alignment(a,x,y):
 	y_seq.reverse()
 	return num_traceback, x_seq, bars, x_seq
 
-def print_seq_alignment(num_traceback,x, y, x_seq, bars, y_seq):
-	print("\nQuery sequences: ")
-	for base in x:
-		print(base, end=" ")
-	print()
-	for base in y:
-		print(base, end=" ")
-	print()
-
+def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
 	print("\nSequence alignment with corresponding Traceback number: ")
 	for num in num_traceback:
 		print(num, end="	")
@@ -146,7 +136,12 @@ def print_seq_alignment(num_traceback,x, y, x_seq, bars, y_seq):
 	for base in y_seq:
 		print(base, end="	")
 
+x = "GGTTGACTA"
+y = "TGTTACGG"
+
+a = gen_matrix(x,y)
 seq_alignment(a,x,y)
 
+print_matrix1(a,x,y)
 
-print_seq_alignment(num_traceback, x, y, x_seq, bars, y_seq)
+print_seq_alignment(num_traceback, x_seq, bars, y_seq)
