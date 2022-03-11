@@ -59,7 +59,8 @@ def seq_alignment(a, x, y):
                 max_score_row, max_score_column = row, column
 
     row, column = max_score_row, max_score_column
-    while row > 0 and column > 0:  # Tracing back the global alignment
+
+    while a[row][column] != 0:  # Tracing back the global alignment
         num_current = a[row][column]
         upper = a[row - 1][column]
         left = a[row][column - 1]
@@ -100,7 +101,7 @@ def seq_alignment(a, x, y):
 
 
 def print_seq_alignment(num_traceback, x_seq, bars, y_seq):
-    print("\nSequence alignment with corresponding Traceback number: ")
+    print("\nLocal Sequence alignment with corresponding Traceback number: ")
     for num in num_traceback:
         print(num, end="	")
     print()
