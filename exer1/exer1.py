@@ -52,15 +52,15 @@ def local_align(a, x, y):
     mrows, ncols = len(x), len(y)
     max_score, max_score_row, max_score_column = 0, 0, 0
 
-    for row in range(mrows+1):  # Finding the max num
-        for column in range(ncols+1):
+    for row in range(mrows + 1):  # Finding the max num
+        for column in range(ncols + 1):
             if max_score <= a[row][column]:
                 max_score = a[row][column]
                 max_score_row, max_score_column = row, column
 
-    row, column = max_score_row, max_score_column
+    row, column = max_score_row, max_score_column # starting from the max_score
 
-    while a[row][column] != 0:  # Tracing back the global alignment
+    while a[row][column] != 0:  # Tracing back the local alignment
         num_current = a[row][column]
         upper = a[row - 1][column]
         left = a[row][column - 1]
@@ -102,16 +102,9 @@ def local_align(a, x, y):
     print_seq_align(num_traceback, x_seq, bars, y_seq)
     print()
 
+
 def global_align(a, x, y):
     mrows, ncols = len(x), len(y)
-
-    max_score, max_score_row, max_score_column = 0, 0, 0
-    for row in range(mrows+1):  # Finding the max num
-        for column in range(ncols+1):
-            if max_score <= a[row][column]:
-                max_score = a[row][column]
-                max_score_row, max_score_column = row, column
-
 
     row, column = mrows, ncols
 
@@ -177,16 +170,14 @@ x = "GGTTGACTA"
 y = "TGTTACGG"
 
 a = gen_matrix(x, y)
-print_matrix1(a, x, y)
+print_matrix1(a, x, y)  # Printing for the General Matrix
 
 a = gen_matrix(x, y)
-local_align(a, x, y)
+local_align(a, x, y)    # Printing for the Local Alignment
 
 num_traceback.clear()
 x_seq.clear()
 bars.clear()
 y_seq.clear()
 
-global_align(a, x, y)
-
-
+global_align(a, x, y)   # Printing for the Global Alignment
